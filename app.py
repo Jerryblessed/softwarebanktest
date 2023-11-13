@@ -1,5 +1,5 @@
 import socket
-
+import os
 from helpers import (
     secrets,
     message,
@@ -32,6 +32,9 @@ from routes.adminPanelComments import adminPanelCommentsBlueprint
 from routes.changeProfilePicture import changeProfilePictureBlueprint
 from dbChecker import dbFolder, usersTable, postsTable, commentsTable
 from flask_wtf.csrf import CSRFProtect
+from flask import Flask, request, render_template, jsonify, session
+import google.generativeai as palm
+
 
 dbFolder()
 usersTable()
@@ -42,6 +45,10 @@ app = Flask(__name__)
 app.secret_key = secrets.token_urlsafe(32)
 app.config["SESSION_PERMANENT"] = True
 csrf = CSRFProtect(app)
+
+API_KEY = "AIzaSyBgv0a3DuNlGQy6zxarbWHiVJsUIZhy4Bc"
+palm.configure(api_key=API_KEY)
+
 
 
 @app.context_processor
@@ -54,6 +61,39 @@ def utility_processor():
 def notFound(e):
     message("1", "404")
     return render_template("404.html"), 404
+
+@app.route('/bot')
+def chat():
+    return render_template('ride.html')
+@app.route('/get_response')
+def get_response():
+    user_message = request.args.get('message')
+    conversation = chat_with_palm(user_message)
+    bot_response = conversation[-1]['content'] if conversation else "An error occurred."
+
+    return jsonify({"botMessage": bot_response})
+
+@app.route('/update_context', methods=['GET'])
+def update_context():
+    title = request.args.get('title')
+    session['context_title'] = title
+    return jsonify({"status": "success"})
+
+def chat_with_palm(prompt):
+    examples = [
+        ('Hello', 'Hi there, how can I assist you today?'),
+        ('I want to make a know more about health', 'Eat well, sleep regularly, and brush always.')
+    ]
+
+    conversation = []
+    if prompt.lower() == "exit":
+        return conversation
+    context_title  = session.get('context_title', '')
+    response = palm.chat(messages=prompt, temperature=1, context=context_title)
+    for message in response.messages:
+        conversation.append({'author': message['author'], 'content': message['content']})
+
+    return conversation
 
 
 app.register_blueprint(postBlueprint)
@@ -81,4 +121,4 @@ app.register_blueprint(changeProfilePictureBlueprint)
 
 match __name__:
     case "__main__":
-        app.run(debug=True, host=socket.gethostbyname(socket.gethostname()))
+        app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8081)))
