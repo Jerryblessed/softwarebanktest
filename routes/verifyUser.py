@@ -80,7 +80,7 @@ def verifyUser(codeSent):
                                         server.starttls(context=context)
                                         server.ehlo()
                                         server.login(
-                                            "flaskblogdogukanurker@gmail.com",
+                                            "softwarebank@gmail.com",
                                             "lsooxsmnsfnhnixy",
                                         )
                                         verificationCode = str(randint(1000, 9999))
@@ -103,7 +103,7 @@ def verifyUser(codeSent):
                                         message["Subject"] = "Verification Code🔢"
                                         message[
                                             "From"
-                                        ] = "flaskblogdogukanurker@gmail.com"
+                                        ] = "softwarebank@gmail.com"
                                         message["To"] = email
                                         server.send_message(message)
                                         server.quit()
