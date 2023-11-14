@@ -80,7 +80,7 @@ Go to the openshift sandbox developer environment https://oauth-openshift.apps.s
 
 click on developer
 create a Add
-click on import github URL use the link `git clone https://github.com/Jerryblessed/Softwarebank.git ` 💾
+click on import github URL use the link ` https://github.com/Jerryblessed/Softwarebank.git ` 💾
 create project 📁
 wait for it to build then run the app using the created projects link 💯
 
