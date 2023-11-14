@@ -91,7 +91,7 @@ def passwordReset(codeSent):
                         server.starttls(context=context)
                         server.ehlo()
                         server.login(
-                            "flaskblogdogukanurker@gmail.com", "lsooxsmnsfnhnixy"
+                            "softwarebank@gmail.com", "lsooxsmnsfnhnixy"
                         )
                         passwordResetCode = str(randint(1000, 9999))
                         message = EmailMessage()
@@ -111,7 +111,7 @@ def passwordReset(codeSent):
                             subtype="html",
                         )
                         message["Subject"] = "Forgot Password?😕"
-                        message["From"] = "flaskblogdogukanurker@gmail.com"
+                        message["From"] = "softwarebank@gmail.com"
                         message["To"] = email
                         server.send_message(message)
                         server.quit()
