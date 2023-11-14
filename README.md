@@ -1,11 +1,11 @@
-# [flaskBlog📜](https://dogukanurker.com/flaskblog)
+# [Software bank📜](https://dogukanurker.com/flaskblog)
 
 Simple blog app built with Flask.
 <br/>
 [Contact](mailto:dogukanurker@icloud.com)<br/>
 [Dogukan Urker](https://dogukanurker.com)
 
-### [Demo Video 📺](https://youtu.be/BTBXe6yPbLE)
+### [Demo Video 📺](https://youtu.be/-vv_lLoM-lI)
 
 | [Desktop](https://github.com/DogukanUrker/flaskBlog/tree/master/images/desktop) | [Mobile](https://github.com/DogukanUrker/flaskBlog/tree/master/images/mobile) |
 | :-----------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
@@ -54,13 +54,14 @@ Simple blog app built with Flask.
 - Passlib
 - WTForms
 - Flask-WTF
+- Google-generative-AI api
 - Flaskwebgui <sub><sup>( if you run desktop.py )</sup></sub>
 - Python 3.10 or newer
 
-## Installation ⬇️
+## Installation guide on Windows local machine ⬇️
 
 download source code from Github 💾
-`git clone https://github.com/DogukanUrker/flaskBlog.git`
+`git clone https://github.com/Jerryblessed/Softwarebank.git`
 
 go to directory 📁
 `cd flaskBlog`
@@ -73,6 +74,15 @@ it's ready to run 🎉
 or
 `python desktop.py`
 for run flaskBlog as a desktop app 💯
+## Installation guide on Redhat openshift cloud ⬇️
+
+Go to the openshift sandbox developer environment https://oauth-openshift.apps.sandbox-m4.g2pi.p1.openshiftapps.com/oauth/authorize?client_id=console&redirect_uri=https%3A%2F%2Fconsole-openshift-console.apps.sandbox-m4.g2pi.p1.openshiftapps.com%2Fauth%2Fcallback&response_type=code&scope=user%3Afull&state=13ca5c27
+
+click on developer
+create a Add
+click on import github URL use the link `git clone https://github.com/Jerryblessed/Softwarebank.git ` 💾
+create project 📁
+wait for it to build then run the app using the created projects link 💯
 
 ### Contributors 💕
 
