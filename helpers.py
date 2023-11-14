@@ -38,30 +38,26 @@ def currentDate():
 
 
 def currentTime(seconds=False):
-    match seconds:
-        case False:
-            return datetime.now().strftime("%H:%M")
-        case True:
-            return datetime.now().strftime("%H:%M:%S")
+    if not seconds:
+        return datetime.now().strftime("%H:%M")
+    else:
+        return datetime.now().strftime("%H:%M:%S")
 
 
 def message(color, message):
+    with open("log.log", "a") as logFile:
+        logFile.write(f"[{currentDate()}|{currentTime(True)}] {message}\n")
     print(
         f"\n\033[94m[{currentDate()}\033[0m"
         f"\033[95m {currentTime(True)}]\033[0m"
         f"\033[9{color}m {message}\033[0m\n"
     )
-    logFile = open("log.log", "a")
-    logFile.write(f"[{currentDate()}" f"|{currentTime(True)}]" f" {message}\n")
-    logFile.close()
 
 
 def addPoints(points, user):
     connection = sqlite3.connect("db/users.db")
     cursor = connection.cursor()
-    cursor.execute(
-        f'update users set points = points+{points} where userName = "{user}"'
-    )
+    cursor.execute('UPDATE users SET points = points + ? WHERE userName = ?', (points, user))
     connection.commit()
     message("2", f'{points} POINTS ADDED TO "{user}"')
 
@@ -69,7 +65,5 @@ def addPoints(points, user):
 def getProfilePicture(userName):
     connection = sqlite3.connect("db/users.db")
     cursor = connection.cursor()
-    cursor.execute(
-        f'select profilePicture from users where lower(userName) = "{userName.lower()}"'
-    )
+    cursor.execute('SELECT profilePicture FROM users WHERE lower(userName) = ?', (userName.lower(),))
     return cursor.fetchone()[0]
