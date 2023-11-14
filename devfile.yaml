@@ -1,5 +1,6 @@
 apiVersion: 2.0.0
 metadata:
+  schemaVersion: 2.2.0
   name: flask-app
 projects:
 - name: flask-app
@@ -19,6 +20,7 @@ projects:
     env:
     - name: FLASK_APP
       value: app.py
+
 
 # schemaVersion: 2.2.0
 # metadata:
